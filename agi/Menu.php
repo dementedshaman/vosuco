@@ -1,10 +1,11 @@
 <?php
 
-class Menu()
+class Menu
 {
-    $handler
 
-    private __construct($tools)
+    private $handler;
+
+    function __construct($tools)
     {
         $this->handler = $tools['handler'];
     }

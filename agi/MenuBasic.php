@@ -14,7 +14,7 @@ class MenuBasic
         //$this->menu = $tools['menu'];
     }
 
-  function reduce()
+    function reduce()
     {
         $general = [];
 
@@ -28,7 +28,7 @@ class MenuBasic
         return $this->makeMenu($general);
     }
 
-  function makeMenu($info)
+    function makeMenu($info)
     {
         $audioArr = [];
         $count = 1;
