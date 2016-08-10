@@ -2,77 +2,33 @@
 
 class Menu()
 {
+    $handler
 
-    $suap = new Suap();
-    $agi = new Agi();
-    $dbc = new Dbc();
-
-    private __construct()
+    private __construct($tools)
     {
-
-    }
-
-    function closeup()
-    {
-        $this->handle->endConversation();
+        $this->handler = $tools['handler'];
     }
 
 	function mainMenu()
 	{
-	  for ($i=0; $i==3; $i++)
-	  {
-	    $log = login();
-	    if ($log) break;
-	  }
-	  if(! $log) menuErrorExit();
-	  prepare();
+        $this->handler->execute_agi("exec Background $files");
+        $result = $this->handler->execute_agi("GET DATA beep 1");
 
-	  do
-	  {
+        $result = $result['result'];
+        $num = $result - 48;
 
-	  } while ($a <= 10);
-
-	  closeup();
+         while (true == true) {
+            if ($num > 0 && $num < 4)
+            {
+                return $num;
+            }
+            else
+            {
+                $this->handler->execute_agi("exec Background pbx-invalid");
+            }
+        };
 	}
 
-	function login()
-    {
-        $cred = $his->agi->collectCredentials();
-        $this->SuapCred = $this->dbc->reatriveSuapCredentials();
-        $this->suapConn = $this->suap->connect();
-    }
-
-    function prepare()
-    {
-        $this->classes = $this->suap->collectClasses();
-    }
-
-	function menuMineClass()
-    {
-        foreach ($this->classes as $class)
-        {
-            $stringMenu = '';
-            $this->agi()->say($stringMenu);
-        }
-
-        $this->agi()->collectClass();
-
-    }
-
-	function menuMineClassGrade()
-    {
-
-    }
-
-	function menuMineClassMiss()
-    {
-
-    }
-
-	function menuMineClassStatus()
-    {
-
-    }
 }
 
 ?>

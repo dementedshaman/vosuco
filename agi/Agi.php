@@ -13,6 +13,9 @@ require_once(dirname(__FILE__) . '/' . 'Handler.php');
 require_once(dirname(__FILE__) . '/' . 'Situacao.php');
 require_once(dirname(__FILE__) . '/' . 'SuapParser.php');
 require_once(dirname(__FILE__) . '/' . 'MenuBasic.php');
+require_once(dirname(__FILE__) . '/' . 'Nota.php');
+require_once(dirname(__FILE__) . '/' . 'Falta.php');
+require_once(dirname(__FILE__) . '/' . 'Menu.php');
 
 $db = new Dbc();
 $hand = new Handler ($s_in, $s_out);
@@ -26,14 +29,31 @@ $tools = ['handler'=>$hand, 'suap'=>$suap];
 $suapParser = new suapParser($tools, $matricula);
 $notas = $suapParser->getnotas();
 $tools['notas'] = $notas;
-
-//Menu
-$menu = new MenuBasic($tools);
-$diario = $sit->reduce();
-
-//Situacao
 $sit = new Situacao($tools);
-$sit->get_situacao($diario);
+$not = new Nota($tools);
+$fal = new Falta($tools);
+
+$menu = new MenuBasic($tools);
+$diario = $menu->reduce();
+
+$mm = Menu();
+$foo = $mm->mainMenu();
+switch ($foo) {
+    case 1:
+        $fal->get_falta($diario);
+        break;
+    case 2:
+        $not->get_nota($diario);
+        break;
+    case 3:
+        $sit->get_situacao($diario);
+        break;
+    default:
+        $hand->endConversation();
+        die;
+        break;
+}
+
 
 $hand->endConversation();
 

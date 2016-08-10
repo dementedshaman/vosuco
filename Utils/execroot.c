@@ -18,13 +18,13 @@ int main(int argc, char *argv[])
                 system("/etc/init.d/apache2 restart");
             break;
             case 3 :
-                system("/usr/sbin/asterisk -rx \"dialplan reload\"");
+                system('/usr/sbin/asterisk -rx "dialplan reload"');
             break ;
             case 4:
-                system("/usr/sbin/asterisk -rx \"sip reload\"");
+                system('/usr/sbin/asterisk -rx "sip reload"');
             break ;
             case 5 :
-                system("/usr/sbin/asterisk -rx \"reload\"");
+                system('/usr/sbin/asterisk -rx "reload"');
             break;
             default :
                 return 2;
