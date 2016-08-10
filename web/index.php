@@ -2,8 +2,9 @@
 
 require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'agi' . DIRECTORY_SEPARATOR . 'Suap.php');
 require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'agi' . DIRECTORY_SEPARATOR . 'Dbc.php');
+require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'agi' . DIRECTORY_SEPARATOR . 'ProcHelp.php');
 
-$title = "VoIP";
+$title = "VOSUCO";
 
 if (isset($_POST["submit"])) {
     $errMatricula = (!$_POST['matricula']) ? 'Matricula Obrigatória' : false;
@@ -84,6 +85,9 @@ callerid="$mat" <$mat>
 EOT;
     fwrite($myfile, $sipC);
     fclose($myfile);
+
+    $procHelp = new ProcHelp();
+    $procHelp->runCmd(ProcHelp::SIP_RELOAD);
 }
 
 ?>

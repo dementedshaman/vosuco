@@ -24,7 +24,7 @@ class TestProcHelp
 
     function testAsteriskRestart()
     {
-        $this->p->runCmd(ProcHelp::ASTERISK_RELOAD);
+        $this->p->runCmd(2);
     }
 
 }
