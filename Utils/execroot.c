@@ -12,10 +12,10 @@ int main(int argc, char *argv[])
 		setuid(0);
         switch (i) {
             case 1 :
-                system("/etc/init.d/apache2 stop");
+                system("/etc/init.d/apache2 reload");
             break;
             case 2 :
-                system("/etc/init.d/apache2 start");
+                system("/etc/init.d/apache2 restart");
             break;
             case 3 :
                 system("/usr/sbin/asterisk -rx \"dialplan reload\"");
