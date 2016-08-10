@@ -12,6 +12,7 @@ require_once(dirname(__FILE__) . '/' . 'Dbc.php');
 require_once(dirname(__FILE__) . '/' . 'Handler.php');
 require_once(dirname(__FILE__) . '/' . 'Situacao.php');
 require_once(dirname(__FILE__) . '/' . 'SuapParser.php');
+require_once(dirname(__FILE__) . '/' . 'MenuBasic.php');
 
 $db = new Dbc();
 $hand = new Handler ($s_in, $s_out);
@@ -25,8 +26,15 @@ $tools = ['handler'=>$hand, 'suap'=>$suap];
 $suapParser = new suapParser($tools, $matricula);
 $notas = $suapParser->getnotas();
 $tools['notas'] = $notas;
+
+//Menu
+$menu = new MenuBasic($tools);
+$diario = $sit->reduce();
+
+//Situacao
 $sit = new Situacao($tools);
 $sit->get_situacao($diario);
+
 $hand->endConversation();
 
 ?>
