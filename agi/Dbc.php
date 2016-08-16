@@ -17,7 +17,7 @@ class Dbc
 
     public function insertAluno($mat, $spass)
     {
-        $new = ((bool) $this->getByMat($mat)) ? false : true;
+        $new = !((bool) $this->getByMat($mat));
         $query = ($new) ? 'INSERT into alunos (matricula, spass) values (:mat, :spass);' : 'UPDATE alunos set spass= :spass where matricula = :mat';
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(":mat", $mat);

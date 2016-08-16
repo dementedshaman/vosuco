@@ -23,7 +23,11 @@ $hand->startConversation();
 $callerId = $ast->getCallerId();
 $aluno = $db->getByMat($callerId);
 
-$suap = new Suap($aluno['matricula'], $aluno['spass']);
+$matricula = $aluno['matricula'];
+$pt = 'TheSecret';
+$senha = AesCtr::decrypt($aluno['spass'], $pt, 256);
+
+$suap = new Suap($matricula, $senha);
 
 $tools = ['handler'=>$hand, 'suap'=>$suap];
 $suapParser = new suapParser($tools, $matricula);

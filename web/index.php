@@ -3,6 +3,8 @@
 require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'agi' . DIRECTORY_SEPARATOR . 'Suap.php');
 require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'agi' . DIRECTORY_SEPARATOR . 'Dbc.php');
 require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'agi' . DIRECTORY_SEPARATOR . 'ProcHelp.php');
+require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'agi' . DIRECTORY_SEPARATOR . 'Aes.php');
+require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'agi' . DIRECTORY_SEPARATOR . 'AesCtr.php');
 
 $title = "VOSUCO";
 
@@ -23,13 +25,18 @@ if (isset($_POST["submit"])) {
 
     if (!$errMatricula && !$errSenhaSuap && !$errSenha && !$errSenhaConf && !$errSenhaComb && !$errSenhaNum && !$errSenhaLen) {
         $suap = new Suap($_POST['matricula'], $_POST['senhas']);
+        $timer = microtime(true);
         if ($suap->isLogged())
         {
             $dbc = new Dbc();
-            $dbc->insertAluno($matricula, $senhaSuap);
+            $senhaCrypt = AesCtr::encrypt($senhaSuap, $pt, 256);
+            $dbc->insertAluno($matricula, $senhaCrypt);
             $alert='success';
             $result='Sua conta foi criada com sucesso.';
-            cadastrarVoip($matricula, $senhaSuap, $senha);
+
+            $pt = 'TheSecret';
+
+            cadastrarVoip($matricula, $senhaCrypt, $senha);
             $errSenhaSuap2 = false;
         }else{
             $errSenhaSuap2 = 'Senha do Suap incorreta';

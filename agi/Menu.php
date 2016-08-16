@@ -12,7 +12,7 @@ class Menu
 
 	function mainMenu()
 	{
-        $this->handler->execute_agi("exec Background $files");
+        $this->handler->execute_agi("exec Background grupo2/menustatic");
         $result = $this->handler->execute_agi("GET DATA beep 1");
 
         $result = $result['result'];
